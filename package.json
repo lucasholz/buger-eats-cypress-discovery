@@ -1,0 +1,15 @@
+{
+  "name": "buger-eats",
+  "version": "1.0.0",
+  "description": "Acceptance test project of the BugerEats app",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open"
+  },
+  "author": "Lucas Holz",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^9.4.1",
+    "cypress-file-upload": "^5.0.8"
+  }
+}
