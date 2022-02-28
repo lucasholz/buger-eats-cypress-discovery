@@ -3,26 +3,15 @@ import SignupPage from '../pages/SignupPage'
 describe('Cadastro', () => {
   var signup = new SignupPage()
 
-  it('Usuário deve se tornar um deliver', () => {
-    var deliver = {
-      name: 'Lucas Holz',
-      cpf: '00000014141',
-      email: 'holz@gmail.com',
-      whatsapp: '53999100010',
-      address: {
-        postalcode: '04534011',
-        street: 'Rua Joaquim Floriano',
-        number: '1000',
-        details: 'Ap 142',
-        district: 'Itaim Bibi',
-        city_uf: 'São Paulo/SP'
-      },
-      delivery_method: 'Moto',
-      cnh: 'images/cnh-digital.jpg'
-    }
+  beforeEach(function () {
+    cy.fixture('deliver').then(function (d) {
+      this.deliver = d
+    })
+  })
 
+  it('Usuário deve se tornar um deliver', function () {
     signup.go()
-    signup.fillForm(deliver)
+    signup.fillForm(this.deliver.signup)
     signup.submit()
 
     const expectedMessage =
@@ -31,26 +20,9 @@ describe('Cadastro', () => {
     signup.modalContentShouldBe(expectedMessage)
   })
 
-  it('CPF incorreto', () => {
-    var deliver = {
-      name: 'Lucas Holz',
-      cpf: '00000014141AA',
-      email: 'holz@gmail.com',
-      whatsapp: '53999100010',
-      address: {
-        postalcode: '04534011',
-        street: 'Rua Joaquim Floriano',
-        number: '1000',
-        details: 'Ap 142',
-        district: 'Itaim Bibi',
-        city_uf: 'São Paulo/SP'
-      },
-      delivery_method: 'Moto',
-      cnh: 'images/cnh-digital.jpg'
-    }
-
+  it('CPF incorreto', function () {
     signup.go()
-    signup.fillForm(deliver)
+    signup.fillForm(this.deliver.cpf_inv)
     signup.submit()
     signup.alertMessageShouldBe('Oops! CPF inválido')
   })
