@@ -1,6 +1,6 @@
 import SignupPage from '../pages/SignupPage'
 
-describe('Cadastro', () => {
+describe('Signup', () => {
   var signup = new SignupPage()
 
   beforeEach(function () {
@@ -9,7 +9,7 @@ describe('Cadastro', () => {
     })
   })
 
-  it('Usuário deve se tornar um deliver', function () {
+  it('User should be deliver', function () {
     signup.go()
     signup.fillForm(this.deliver.signup)
     signup.submit()
@@ -20,7 +20,7 @@ describe('Cadastro', () => {
     signup.modalContentShouldBe(expectedMessage)
   })
 
-  it('CPF incorreto', function () {
+  it('Incorrect document', function () {
     signup.go()
     signup.fillForm(this.deliver.cpf_inv)
     signup.submit()
