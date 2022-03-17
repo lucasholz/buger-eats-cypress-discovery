@@ -1,17 +1,20 @@
 import SignupPage from '../pages/SignupPage'
+import signupFactory from '../factories/SignupFactory'
 
 describe('Signup', () => {
   var signup = new SignupPage()
 
-  beforeEach(function () {
-    cy.fixture('deliver').then(function (d) {
-      this.deliver = d
-    })
-  })
+  // beforeEach(function () {
+  //   cy.fixture('deliver').then(function (d) {
+  //     this.deliver = d
+  //   })
+  // })
 
   it('User should be deliver', function () {
+    var deliver = signupFactory.deliver()
+
     signup.go()
-    signup.fillForm(this.deliver.signup)
+    signup.fillForm(deliver)
     signup.submit()
 
     const expectedMessage =
@@ -21,15 +24,23 @@ describe('Signup', () => {
   })
 
   it('Incorrect document', function () {
+    var deliver = signupFactory.deliver()
+
+    deliver.cpf = '000000141aa'
+
     signup.go()
-    signup.fillForm(this.deliver.cpf_inv)
+    signup.fillForm(deliver)
     signup.submit()
     signup.alertMessageShouldBe('Oops! CPF inválido')
   })
 
   it('Incorrect email', function () {
+    var deliver = signupFactory.deliver()
+
+    deliver.email = 'matteholz.gmail.com'
+
     signup.go()
-    signup.fillForm(this.deliver.email_inv)
+    signup.fillForm(deliver)
     signup.submit()
     signup.alertMessageShouldBe('Oops! Email com formato inválido.')
   })
